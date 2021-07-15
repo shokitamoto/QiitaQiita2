@@ -40,5 +40,6 @@ class ItemRepository {
 
             override fun onFailure(call: Call<List<ItemEntity>>?, t: Throwable?) {}
         })
+
     }
 }
