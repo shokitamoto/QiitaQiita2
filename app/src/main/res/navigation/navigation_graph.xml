@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/navi_all"
-        android:name="com.example.sho.qiitaqiita2.AllFragment"
+        android:name="com.example.sho.qiitaqiita2.ActivityandFragment.AllFragment"
         android:label="AllFragment" />
 
     <fragment
         android:id="@+id/navi_favorite"
-        android:name="com.example.sho.qiitaqiita2.FavoriteFragment"
+        android:name="com.example.sho.qiitaqiita2.ActivityandFragment.FavoriteFragment"
         android:label="FavoriteFragment" />
 
     <fragment
         android:id="@+id/navi_me"
-        android:name="com.example.sho.qiitaqiita2.MeFragment"
+        android:name="com.example.sho.qiitaqiita2.ActivityandFragment.MeFragment"
         android:label="MeFragment" />
 
 </navigation>

@@ -1,9 +1,10 @@
-package com.example.sho.qiitaqiita2
+package com.example.sho.qiitaqiita2.ActivityandFragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.example.sho.qiitaqiita2.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
