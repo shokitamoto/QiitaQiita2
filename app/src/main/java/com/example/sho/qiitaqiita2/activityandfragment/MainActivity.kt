@@ -1,4 +1,4 @@
-package com.example.sho.qiitaqiita2.ActivityandFragment
+package com.example.sho.qiitaqiita2.activityandfragment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
