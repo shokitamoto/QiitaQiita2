@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/navi_all"
-        android:name="com.example.sho.qiitaqiita2.activityandfragment.AllFragment"
-        android:label="AllFragment" />
+        android:name="com.example.sho.qiitaqiita2.activityandfragment.ArticleListFragment"
+        android:label="ArticleListFragment" />
 
     <fragment
         android:id="@+id/navi_favorite"

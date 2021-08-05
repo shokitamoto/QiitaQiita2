@@ -74,4 +74,7 @@ dependencies {
 
     // OkHttp3Logging (ログ用)
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+
+    // RecyclerView
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
