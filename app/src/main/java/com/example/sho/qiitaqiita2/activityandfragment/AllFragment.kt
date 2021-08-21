@@ -75,11 +75,11 @@ class AllFragment : Fragment(R.layout.fragment_all) {
             binding = DataBindingUtil.bind(view)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val list = api.items(page, "Android")
-                    withContext(Dispatchers.Main) {
-                        binding?.textViewAll?.text = list.joinToString("\n")
-                        //joinToStringで文末に改行を追加。本来はseparatorのカンマ,によって一つ一つが区切られている。
-                    }
+//                    val list = api.items(page, "Android")
+//                    withContext(Dispatchers.Main) {
+//                        binding?.textViewAll?.text = list.joinToString("\n")
+//                        //joinToStringで文末に改行を追加。本来はseparatorのカンマ,によって一つ一つが区切られている。
+//                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -1,16 +1,13 @@
 package com.example.sho.qiitaqiita2.activityandfragment
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
-import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sho.qiitaqiita2.Article
-import com.example.sho.qiitaqiita2.ArticleListAdapter
-import com.example.sho.qiitaqiita2.QiitaApi
-import com.example.sho.qiitaqiita2.R
-import com.example.sho.qiitaqiita2.databinding.FragmentAllBinding
+import com.example.sho.qiitaqiita2.*
+import com.example.sho.qiitaqiita2.databinding.ActivityOneArticleBinding
 import com.example.sho.qiitaqiita2.databinding.FragmentArticleListBinding
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -23,9 +20,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
+class OneArticleActivity: AppCompatActivity(R.layout.activity_one_article) {
 
-    // Repositoryなしで書く実験------------------------------------------------------------------
     private val httpClient =
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -50,17 +46,12 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
 
     // APIにアクセス(retrofitを使用)
     private val api =
-        retrofit.create(QiitaApi::class.java)
-
-
-    // ここまで---------------------------------------------------------------------------------------------------
+        retrofit.create(QiitaApiOneArticle::class.java)
 
     // メンバ変数をここで用意---------------------------------------------------------------------------------------
-    private var binding: FragmentArticleListBinding? = null
+    private var binding: ActivityOneArticleBinding? = null
 
     private val coroutineScope = CoroutineScope(Dispatchers.IO) //coroutineを変数に
-
-    private lateinit var adapter: ArticleListAdapter // Adapterをlateinitで変数に。
 
     private lateinit var layoutManager: LinearLayoutManager // 並べ方決めるやつ
 
@@ -68,42 +59,23 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
     // ここまで---------------------------------------------------------------------------------------------------
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
 
-        adapter = ArticleListAdapter(layoutInflater, articleList)
-        layoutManager = LinearLayoutManager(
-            requireContext(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        val bindingData: FragmentArticleListBinding? = DataBindingUtil.bind(view)
+        val bindingData: ActivityOneArticleBinding? = DataBindingUtil.bind(savedInstanceState)
         binding = bindingData ?: return // bindingがnullなら何も返さない
-
-        // ArticleListAdapter(表示内容)とLayoutManager(レイアウト方法)をRecyclerViewに設定する。
-        bindingData.recyclerView.also {
-            it.layoutManager = layoutManager
-            it.adapter = adapter
-        }
 
         coroutineScope.launch {
             val articleListResponse = api.items()
             articleList.addAll(articleListResponse)
-            reloadArticleList()
         }
 
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy(){
+        super.onDestroy()
         binding?.unbind()
     }
-
-    private suspend fun reloadArticleList() = withContext(Dispatchers.Main){
-        adapter.notifyDataSetChanged()  //通知。データセットが変わったよ→リストの表示が更新される。
-    }
-
 
 
 }

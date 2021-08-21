@@ -1,11 +1,15 @@
 package com.example.sho.qiitaqiita2
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sho.qiitaqiita2.databinding.ListItemArticleBinding
+
+//アダプター...RecyclerViewでリスト表示する時の表示のさせ方を決める。作って学ぶp.88
 
 class ArticleListAdapter(
-    private val layoutInflater,
+    private val layoutInflater: LayoutInflater,
     private val articleList: ArrayList<Article>
 ) : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>() {
 
@@ -37,8 +41,10 @@ class ArticleListAdapter(
         private val binding: ListItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
-            binding.userName.text = article.account.username
-            binding.content.text = article.content
+            binding.userName.text = article.id
+            binding.articleContent.text = article.articleContent
+            binding.articleTitle.text = article.articleTitle
+
         }
     }
 }
