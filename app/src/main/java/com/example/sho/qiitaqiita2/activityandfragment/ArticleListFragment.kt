@@ -72,6 +72,11 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = ArticleListAdapter(layoutInflater, articleList)
+        adapter.onClickArticle = { article ->
+            showArticleDetail(article.url)
+        }
+
+
         layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.VERTICAL,
@@ -104,6 +109,9 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         adapter.notifyDataSetChanged()  //通知。データセットが変わったよ→リストの表示が更新される。
     }
 
+    private fun showArticleDetail(url: String) {
+        OneArticleActivity.start(requireActivity(), url)
+    }
 
 
 }

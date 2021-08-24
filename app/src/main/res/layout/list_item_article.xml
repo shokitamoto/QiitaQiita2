@@ -22,23 +22,23 @@
 
         <TextView
             android:id="@+id/articleTitle"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:lines="1"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:text="ArticleTitle"
             android:ellipsize="end"
-            app:layout_constraintStart_toStartOf="@+id/userName"
+            android:lines="1"
+            android:text="ArticleTitle"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/userName"
             app:layout_constraintTop_toBottomOf="@+id/userName" />
 
         <TextView
             android:id="@+id/articleContent"
-            android:layout_width="0dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:lines="2"
             android:layout_marginTop="15dp"
@@ -71,6 +71,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="51dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_star_purple500_black_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

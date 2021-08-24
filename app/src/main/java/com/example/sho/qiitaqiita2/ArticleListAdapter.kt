@@ -15,6 +15,10 @@ class ArticleListAdapter(
 
     // var binding: ListItemArticleBinding? = null
 
+    // Articleが引数で、Unitが戻り値
+    // fun test(article: Article, index:Int): String{}的な
+    var onClickArticle: ((Article) -> Unit)? = null  //変数に関数を代入した形
+
     override fun getItemCount() = articleList.size
 
     override fun onCreateViewHolder(
@@ -27,7 +31,8 @@ class ArticleListAdapter(
             parent,
             false
         )
-        return ViewHolder(binding)
+        // 戻り値は、ViewHolderの　インスタンス
+        return ViewHolder(binding, onClickArticle)
     }
 
     override fun onBindViewHolder(
@@ -38,12 +43,20 @@ class ArticleListAdapter(
     }
 
     class ViewHolder(
-        private val binding: ListItemArticleBinding
+        private val binding: ListItemArticleBinding,
+        private val onClickArticle: ((Article) -> Unit)?
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
-            binding.userName.text = article.id
-            binding.articleContent.text = article.articleContent
-            binding.articleTitle.text = article.articleTitle
+            binding.apply {
+                userName.text = article.id
+                articleContent.text = article.articleContent
+                articleTitle.text = article.articleTitle
+                root.setOnClickListener {
+                    onClickArticle?.invoke(article)
+                    // invokeは、onClickArticleを起動する、の意味
+                }
+            }
+
 
         }
     }
