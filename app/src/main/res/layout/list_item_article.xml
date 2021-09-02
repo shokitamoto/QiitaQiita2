@@ -6,6 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="isFavorite"
+            type="Boolean" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -72,15 +79,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <!--        押したらどうなるかをIDにしている-->
         <ImageView
-            android:id="@+id/imageView"
+            android:visibility="@{isFavorite ? View.INVISIBLE : View.VISIBLE}"
+            android:id="@+id/favoriteImageView"
+            android:src="@drawable/ic_baseline_star_border_24"
             android:layout_width="51dp"
-            android:layout_height="0dp"
+            android:layout_height="51dp"
             android:layout_marginEnd="10dp"
+            app:tint="#F00"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_star_purple500_black_24" />
+            app:layout_constraintTop_toTopOf="parent" />
 
+<!--        押したらどうなるかをIDにしている-->
+        <ImageView
+            android:visibility="@{isFavorite ? View.VISIBLE : View.INVISIBLE}"
+            android:id="@+id/unFavoriteImageView"
+            android:src="@drawable/ic_baseline_star_24"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="10dp"
+            app:tint="#F00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -6,14 +6,12 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sho.qiitaqiita2.Article
-import com.example.sho.qiitaqiita2.ArticleListAdapter
-import com.example.sho.qiitaqiita2.QiitaApi
-import com.example.sho.qiitaqiita2.R
+import com.example.sho.qiitaqiita2.*
 import com.example.sho.qiitaqiita2.databinding.FragmentAllBinding
 import com.example.sho.qiitaqiita2.databinding.FragmentArticleListBinding
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.android.synthetic.main.list_item_article.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,8 +70,16 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = ArticleListAdapter(layoutInflater, articleList)
-        adapter.onClickArticle = { article ->
-            showArticleDetail(article.url)
+        adapter.apply {
+            onClickArticle = { article ->
+                showArticleDetail(article.url)
+            }
+            onClickFavorite = { article ->
+                favorite(article)
+            }
+            onClickUnFavorite = { article ->  
+                unFavorite(article)
+            }
         }
 
 
@@ -113,5 +119,16 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         OneArticleActivity.start(requireActivity(), url)
     }
 
+    private fun favorite(article: Article) { // お気に入りを登録
+        val favorite = Favorite().apply {
+            id = article.id
+            articleTitle = article.articleTitle
+            articleContent = article.articleContent
+        }
+        Favorite.insert(favorite)
+    }
+    private fun unFavorite(article: Article) { // お気に入りを登録
+        Favorite.delete(article.id)
+    }
 
 }
