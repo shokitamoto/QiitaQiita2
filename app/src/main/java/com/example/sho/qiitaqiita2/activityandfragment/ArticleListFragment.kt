@@ -76,9 +76,12 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
             }
             onClickFavorite = { article ->
                 favorite(article)
+                adapter.notifyDataSetChanged()
             }
             onClickUnFavorite = { article ->  
                 unFavorite(article)
+                adapter.notifyDataSetChanged()
+
             }
         }
 

@@ -5,10 +5,10 @@ import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
-open class Favorite : RealmObject() (
+open class Favorite : RealmObject() {
     @PrimaryKey
-    var id : String = "", // 記事ID
-    var articleTitle : String = "", // タイトル
+    var id : String = "" // 記事ID
+    var articleTitle : String = "" // タイトル
     var articleContent : String ="" // 記事文章
 
     // var deletedAt: Date? = null // 削除された日付。null <- 削除されていない。!null <- 削除された
@@ -62,5 +62,5 @@ open class Favorite : RealmObject() (
             }
         }
     }
-)
+
 
