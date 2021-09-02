@@ -61,7 +61,7 @@ class ArticleListAdapter(
                 userName.text = article.id
                 articleContent.text = article.articleContent
                 articleTitle.text = article.articleTitle
-                isFavorite = Favorite.findBy(article).id != null //お気に入りの状態を代入する nullだったらお気に入りじゃない。
+                isFavorite = Favorite.findBy(article.id) != null //お気に入りの状態を代入する nullだったらお気に入りじゃない。
                 favoriteImageView.setOnClickListener{
                     onClickFavorite?.invoke(article)
                 }
