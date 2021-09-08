@@ -85,4 +85,8 @@ dependencies {
 
     implementation 'io.realm:android-adapters:3.0.0'
 
+    // SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+
 }

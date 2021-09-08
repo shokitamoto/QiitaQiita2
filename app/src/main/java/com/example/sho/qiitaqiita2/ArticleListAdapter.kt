@@ -49,7 +49,7 @@ class ArticleListAdapter(
         holder.bind(articleList[position])
     }
 
-
+    // ViewHolderクラスはAdapterクラスの中に書くことが多い
     class ViewHolder(
         private val binding: ListItemArticleBinding,
         private val onClickArticle: ((Article) -> Unit)?,

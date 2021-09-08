@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dataBindingの対象にする-->
+<!--list_item_articleと全く同じものを使う-->
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="isFavorite"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="UserName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/articleTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="ArticleTitle"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/userName"
+            app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+        <TextView
+            android:id="@+id/articleContent"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="ArticleContent"
+
+            android:ellipsize="end"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/articleTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
+
+        <ImageView
+            android:id="@+id/userIcon"
+            android:layout_width="71dp"
+            android:layout_height="66dp"
+            android:visibility="gone"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!--        押したらどうなるかをIDにしている-->
+        <ImageView
+            android:visibility="@{isFavorite ? View.INVISIBLE : View.VISIBLE}"
+            android:id="@+id/favoriteImageView"
+            android:src="@drawable/ic_baseline_star_border_24"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="10dp"
+            app:tint="#F00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        押したらどうなるかをIDにしている-->
+        <ImageView
+            android:visibility="@{isFavorite ? View.VISIBLE : View.INVISIBLE}"
+            android:id="@+id/unFavoriteImageView"
+            android:src="@drawable/ic_baseline_star_24"
+            android:layout_width="51dp"
+            android:layout_height="51dp"
+            android:layout_marginEnd="10dp"
+            app:tint="#F00"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
