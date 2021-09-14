@@ -68,6 +68,11 @@ class OneArticleActivity: AppCompatActivity() {
             return
         }
 
+        val title = intent.getStringExtra(KEY_TITLE) ?: ""
+
+        binding.title = title
+
+
         // TODO: urlを使ってwebViewのloadをする
         binding.webView.apply {
             // TODO:webViewの設定をする
@@ -84,6 +89,30 @@ class OneArticleActivity: AppCompatActivity() {
 //            val articleListResponse = api.items()
 //            articleList.addAll(articleListResponse)
         }
+        updateStarImage()
+    }
+
+    private fun updateStarImage() {
+        val id = intent.getStringExtra(KEY_ID) ?: ""
+        val isFavorite = Favorite.findBy(id) != null
+        binding.isFavorite = isFavorite
+    }
+
+    private fun changeFavorite() {
+        val id = intent.getStringExtra(KEY_ID) ?: ""
+        val isFavorite = Favorite.findBy(id) != null
+        if (isFavorite) {
+            Favorite.delete(id)
+        } else {
+            Favorite.insert(Favorite().apply {
+                this.id = id
+                this.articleTitle = intent.getStringExtra(KEY_TITLE) ?: ""
+                this.articleContent = intent.getStringExtra(KEY_CONTENT) ?: ""
+                this.url = intent.getStringExtra(KEY_URL) ?: ""
+
+            })
+        }
+        updateStarImage()
     }
 
     //ここにstartを用意することで(メソッドの呼び出し位置の一元化)、どこからstartメソッドが呼ばれているかが超わかりやすくなる
@@ -91,12 +120,18 @@ class OneArticleActivity: AppCompatActivity() {
         // key_urlのタイプミスを防ぐためにKEY_URLという定数を用意し、それをonCreate内のurlに代入する。
         // そうすることで、コードが間違っていて気づけない問題を防ぐことができる。
         private const val KEY_URL = "key_url"
+        private const val KEY_TITLE = "key_title"
+        private const val KEY_ID = "key_id"
+        private const val KEY_CONTENT = "key_content"
 
 //        startメソッドを使うと、urlをactivityに渡す感じで、このActivityが開かれる
 
-        fun start(activity: Activity, url: String) {
+        fun start(activity: Activity, url: String, title: String, id: String, content: String) {
             val intent = Intent(activity, OneArticleActivity::class.java)
             intent.putExtra(KEY_URL, url) // intentにUrlをつめる
+            intent.putExtra(KEY_TITLE, title)
+            intent.putExtra(KEY_ID, id)
+            intent.putExtra(KEY_CONTENT, content)
             activity.startActivity(intent)
 
         }

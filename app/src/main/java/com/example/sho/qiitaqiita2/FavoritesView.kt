@@ -22,9 +22,14 @@ class FavoritesView: RecyclerView {
 
 
 
-    val customAdapter by lazy { Adapter(context) }
+    val customAdapter by lazy { Adapter(context) } // { Adapter(context) }は、初期化の方法。
+    // by lazyなしで書くと、val customAdapter = Adapter(context)
+    // by lazyで書くのは、Repository系が多い。ユーザーの操作によって、表示が変わる場合に使う。ユーザーが押さなかったら、メモリは節約できる。
+    // by lazyは処理を遅らせて、他の処理が行われている時の負担を減らすことができる。
 
     // layoutManagerの実装
+    // initはFavoritesViewがインスタンス化されて、コンストラクターが呼ばれた後に呼ばれる。この場合は、initよりも先に書かれているval customAdapter by lazy { Adapter(context) } が先に呼ばれる。
+    // initはどんなクラスにもある。
     init {
         adapter = customAdapter
         setHasFixedSize(true)
@@ -36,6 +41,9 @@ class FavoritesView: RecyclerView {
     class Adapter(private val context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         private val items = mutableListOf<Favorite>() // RecyclerViewで表示するリスト
+
+        //clickをFragmentに伝えるためのもの
+        var onClickFavorite: ((Favorite) -> Unit)? = null
 
         // refreshはAdapterに対して、新しいリストを渡している。
         fun refresh(list: List<Favorite>) {
@@ -49,17 +57,19 @@ class FavoritesView: RecyclerView {
         override fun getItemCount(): Int = if (items.isEmpty()) 1 else items.size
 
         override fun getItemViewType(position: Int): Int {
+            //裏で、getItemViewTypeとonCreateViewHolderがviewTypeで繋がっている。
+            //getItemViewTypeの初期値は0。
             return if (items.isEmpty())
-                1
+                VIEW_TYPE_EMPTY
             else
-                2
+                VIEW_TYPE_ITEM
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             // viewType 1 or 2。getItemViewTypeを書かないと0がくる。
 
             val view = View(context)
-            if (viewType == 1){
+            if (viewType == VIEW_TYPE_EMPTY) {
                 // viewTypeが1のとき
                 return EmptyViewHolder(ListEmptyFavoriteBinding.inflate(LayoutInflater.from(context), parent, false))
             }
@@ -96,11 +106,20 @@ class FavoritesView: RecyclerView {
                     notifyItemChanged(position) // position番目だけ再描画
                 }
                 root.setOnClickListener {
+                    // 同じクラス内でonClickFavoriteを使うので、新しく宣言する必要はない
+                    // ArticleListAdapterの場合は、ViewHolderで再宣言している。
+                    onClickFavorite?.invoke(data)
                 }
             }
         }
         class ItemViewHolder(val binding: ListItemFavoriteBinding): RecyclerView.ViewHolder(binding.root)
         class EmptyViewHolder(val binding: ListEmptyFavoriteBinding): RecyclerView.ViewHolder(binding.root)
 
+
+        companion object {
+            private const val VIEW_TYPE_EMPTY = 1
+            private const val VIEW_TYPE_ITEM = 2
+
+        }
     }
 }

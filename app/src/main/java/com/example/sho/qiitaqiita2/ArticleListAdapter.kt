@@ -14,6 +14,8 @@ class ArticleListAdapter(
     private val articleList: ArrayList<Article>
 ) : RecyclerView.Adapter<ArticleListAdapter.ViewHolder>() {
 
+
+
     // var binding: ListItemArticleBinding? = null
 
     // Articleが引数で、Unitが戻り値
@@ -48,6 +50,8 @@ class ArticleListAdapter(
     ) {
         holder.bind(articleList[position])
     }
+
+
 
     // ViewHolderクラスはAdapterクラスの中に書くことが多い
     class ViewHolder(

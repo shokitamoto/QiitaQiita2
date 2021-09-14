@@ -10,6 +10,7 @@ open class Favorite : RealmObject() {
     var id : String = "" // 記事ID
     var articleTitle : String = "" // タイトル
     var articleContent : String ="" // 記事文章
+    var url: String = ""
 
     // var deletedAt: Date? = null // 削除された日付。null <- 削除されていない。!null <- 削除された
     // createdAt: レコードが作られた日時

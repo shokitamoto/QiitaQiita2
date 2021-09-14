@@ -65,6 +65,8 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
     private val articleList = ArrayList<Article>()
     // ここまで---------------------------------------------------------------------------------------------------
 
+    private val items = mutableListOf<Article>() // RecyclerViewで表示するリスト
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,7 +74,7 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         adapter = ArticleListAdapter(layoutInflater, articleList)
         adapter.apply {
             onClickArticle = { article ->
-                showArticleDetail(article.url)
+                showArticleDetail(article)
             }
             onClickFavorite = { article ->
                 favorite(article)
@@ -109,6 +111,7 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
     }
 
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding?.unbind()
@@ -118,8 +121,8 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
         adapter.notifyDataSetChanged()  //通知。データセットが変わったよ→リストの表示が更新される。
     }
 
-    private fun showArticleDetail(url: String) {
-        OneArticleActivity.start(requireActivity(), url)
+    private fun showArticleDetail(article: Article) {
+        OneArticleActivity.start(requireActivity(), article.url, article.articleTitle, article.id, article.articleContent)
     }
 
     private fun favorite(article: Article) { // お気に入りを登録
@@ -127,6 +130,7 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
             id = article.id
             articleTitle = article.articleTitle
             articleContent = article.articleContent
+            url = article.url
         }
         Favorite.insert(favorite)
     }
