@@ -25,6 +25,8 @@ class FavoriteFragment : Fragment() {
                 // 上にswipeした時にデータ更新
                 updateData()
             }
+//            変数onClickFavoriteに値を代入したい
+//            bindingを使い、FavoritesViewのidであるfavoritesViewでアクセスしている。
             favoritesView.customAdapter.onClickFavorite = {
                 showFavoriteDetail(it)
             }

@@ -102,12 +102,32 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
             it.adapter = adapter
         }
 
+        bindingData.swipeRefreshLayout.setOnRefreshListener {
+            loadData()
+        }
+
+//        coroutineScope.launch {
+//            val articleListResponse = api.items()
+//            articleList.addAll(articleListResponse)
+//            reloadArticleList()
+//        }
+        addData()
+    }
+    private fun addData() {
         coroutineScope.launch {
             val articleListResponse = api.items()
             articleList.addAll(articleListResponse)
             reloadArticleList()
         }
+    }
 
+    private fun loadData() {
+        coroutineScope.launch {
+            val articleListResponse = api.items()
+            articleList.clear()
+            articleList.addAll(articleListResponse)
+            reloadArticleList()
+        }
     }
 
 
@@ -119,6 +139,7 @@ class ArticleListFragment: Fragment(R.layout.fragment_article_list) {
 
     private suspend fun reloadArticleList() = withContext(Dispatchers.Main){
         adapter.notifyDataSetChanged()  //通知。データセットが変わったよ→リストの表示が更新される。
+        binding?.swipeRefreshLayout?.isRefreshing = false
     }
 
     private fun showArticleDetail(article: Article) {

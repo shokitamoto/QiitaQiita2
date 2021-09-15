@@ -23,6 +23,8 @@ class FavoritesView: RecyclerView {
 
 
     val customAdapter by lazy { Adapter(context) } // { Adapter(context) }は、初期化の方法。
+    // customAdapter のクラスはAdapter。「val customAdapter = Adapter(context)」
+//    customAdapterはAdapterのインスタンス
     // by lazyなしで書くと、val customAdapter = Adapter(context)
     // by lazyで書くのは、Repository系が多い。ユーザーの操作によって、表示が変わる場合に使う。ユーザーが押さなかったら、メモリは節約できる。
     // by lazyは処理を遅らせて、他の処理が行われている時の負担を減らすことができる。
